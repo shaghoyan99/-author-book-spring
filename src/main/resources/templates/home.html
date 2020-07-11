@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link href="/templates/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1 align="center"> Welcome library !!!</h1> <br>
+
+<div class="row" align="center">
+    <div style="float: left">
+        Add author:
+        <form  action="/addAuthor" method="post">
+            <input type="text" name="name" placeholder="Please input name"/><br>
+            <input type="text" name="surname" placeholder="Please input surname"/><br>
+            <input type="text" name="email" placeholder="Please input email"/><br>
+            <input type="radio" name="gender" value="MALE"/>MALE<br>
+            <input type="radio" name="gender" value="FEMALE"/>FEMALE<br>
+            <input type="text" name="bio" placeholder="Bio"/><br>
+            <input type="submit" value="Add">
+        </form>
+        <br>
+        <a href="/authorPage">All Author</a>
+        <br><br>
+    </div>
+    <div style="float: right">
+        Add book:
+        <form  action="/addBook" method="post">
+            <input type="text" name="title" placeholder="Please input title"/><br>
+            <input type="text" name="description" placeholder="Please input description"/><br>
+            <input type="number" name="price" placeholder="Please input price"/><br>
+            <select name="authorId">
+                <option th:each="author:${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+            </select><br>
+            <input type="submit" value="Add">
+        </form>
+        <br>
+        <a href="/bookPage">All Book</a>
+    </div>
+</div>
+</body>
+</html>

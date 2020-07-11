@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Author Page</title>
+    <link href="/templates/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body background="img/imgfon2.jpg" >
+
+<a href="/">Home Page</a>
+
+<h1 align="center"> All Authors: </h1> <br>
+
+<div align="center">
+    <table border="1">
+        <tr style="color: black">
+            <th>name</th>
+            <th>surname</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>bio</th>
+            <th>delete</th>
+        </tr>
+
+        <tr style="color: dimgrey" th:each="author: ${authors}" >
+            <td th:text="${author.name}"></td>
+            <td th:text="${author.surname}"></td>
+            <td th:text="${author.email}"></td>
+            <td th:text="${author.gender}"></td>
+            <td th:text="${author.bio}"></td>
+            <td><a th:href="@{/deleteAuthor(id=${author.id})}"><button class="button"></button></a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+.backGr {
+    background: url("/templates/img/imgfon2.jpg");
+}
+
+
+.row {
+    overflow: hidden;
+}
+
+.row > div {
+    float: left;
+    width: 50%;
+}
+
+label {
+    display: inline-block;
+    padding-right: .66em;
+    position: relative;
+}
+
+label.required::after {
+    content: "*";
+    color: #c00;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+.button {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
