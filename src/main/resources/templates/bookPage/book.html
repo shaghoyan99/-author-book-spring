@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Book Page</title>
-    <link href="/templates/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" >
 </head>
-<body background="img/imgfon2.jpg">
+<body class="backGr">
 
 <a href="/">Home Page</a>
 
@@ -17,16 +17,18 @@
             <th>title</th>
             <th>description</th>
             <th>price</th>
-            <th>authorId</th>
+            <th>author</th>
             <th>delete</th>
+            <th>edit</th>
         </tr>
 
         <tr style="color: dimgrey" th:each="book: ${books}">
             <td th:text="${book.title}"></td>
             <td th:text="${book.description}"></td>
             <td th:text="${book.price}"></td>
-            <td th:text="${book.authorId}"></td>
-            <td><a th:href="@{/deleteBook(id=${book.id})}">X</a></td>
+            <td th:text="${book.author.name}"></td>
+            <td><a th:href="@{/deleteBook(id=${book.id})}">Delete</a></td>
+            <td><a th:href="@{/bookPage/editBook(id=${book.id})}">Edit</a></td>
         </tr>
     </table>
 </div>
