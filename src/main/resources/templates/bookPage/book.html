@@ -9,11 +9,11 @@
 
 <a href="/">Home Page</a>
 
-<h1 align="center"> All Books: </h1> <br>
+<h1 class="textColor" align="center"> All Books: </h1> <br>
 
 <div align="center">
     <table border="1">
-        <tr style="color: black">
+        <tr class="textColor">
             <th>title</th>
             <th>description</th>
             <th>price</th>
@@ -22,13 +22,13 @@
             <th>edit</th>
         </tr>
 
-        <tr style="color: dimgrey" th:each="book: ${books}">
+        <tr  th:each="book: ${books}">
             <td th:text="${book.title}"></td>
             <td th:text="${book.description}"></td>
             <td th:text="${book.price}"></td>
             <td th:text="${book.author.name}"></td>
-            <td><a th:href="@{/deleteBook(id=${book.id})}">Delete</a></td>
-            <td><a th:href="@{/bookPage/editBook(id=${book.id})}">Edit</a></td>
+            <td><a  th:href="@{/deleteBook(id=${book.id})}">Delete</a></td>
+            <td><a  th:href="@{/bookPage/editBook(id=${book.id})}">Edit</a></td>
         </tr>
     </table>
 </div>

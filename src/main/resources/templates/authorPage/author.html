@@ -5,16 +5,14 @@
     <title>Author Page</title>
     <link href="/css/style.css" rel="stylesheet">
 </head>
-<body class="backGr" >
+<body class="backGr">
 
 <a href="/">Home Page</a>
 
-<h1 align="center"> All Authors: </h1> <br>
-
-
+<h1 class="textColor" align="center"> All Authors: </h1> <br>
 <div align="center">
     <table border="1">
-        <tr style="color: black">
+        <tr class="textColor">
             <th>name</th>
             <th>surname</th>
             <th>email</th>
@@ -25,7 +23,7 @@
             <th>edit</th>
         </tr>
 
-        <tr style="color: dimgrey" th:each="author: ${authors}" >
+        <tr class="textColor" th:each="author: ${authors}">
             <td th:text="${author.name}"></td>
             <td th:text="${author.surname}"></td>
             <td th:text="${author.email}"></td>

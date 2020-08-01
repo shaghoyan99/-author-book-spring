@@ -2,9 +2,9 @@ package am.itspace.controller;
 
 import am.itspace.model.Author;
 import am.itspace.model.Book;
-import am.itspace.repository.AuthorRepository;
 
-import am.itspace.repository.BookRepository;
+import am.itspace.service.AuthorService;
+import am.itspace.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,13 +26,13 @@ public class MainController {
 
     @Value("${file.upload.dir}")
     private String uploadDir;
-    private final AuthorRepository authorRepo;
-    private final BookRepository bookRepo;
+    private final BookService bookService;
+    private final AuthorService authorService;
 
 
     @GetMapping("/")
     public String homePage(Model modelMap, @RequestParam(name = "msg", required = false) String msg) {
-        List<Author> allAuthor = authorRepo.findAll();
+        List<Author> allAuthor = authorService.findAll();
         modelMap.addAttribute("authors", allAuthor);
         modelMap.addAttribute("msg", msg);
         return "home";
@@ -40,20 +40,21 @@ public class MainController {
 
     @PostMapping("/addBook")
     public String addBook(@ModelAttribute Book book) {
-        String msg = book.getId() > 0 ? "Book was updated": "Book was added";
-        bookRepo.save(book);
-        return "redirect:/";
+        String msg = "Book was added";
+        bookService.save(book);
+        return "redirect:/?msg=" + msg;
     }
 
 
     @PostMapping("/addAuthor")
     public String addAuthor(@ModelAttribute Author author, @RequestParam("image") MultipartFile file) throws IOException {
-        String name = System.currentTimeMillis()+ "_" + file.getOriginalFilename();
-        File image = new File(uploadDir,name);
+        String name = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        File image = new File(uploadDir, name);
         file.transferTo(image);
         author.setProfilePic(name);
-        authorRepo.save(author);
-        return "redirect:/";
+        String msg = "Author was added";
+        authorService.save(author);
+        return "redirect:/?msg=" + msg;
     }
 
 

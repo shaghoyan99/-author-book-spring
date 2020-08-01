@@ -2,8 +2,8 @@ package am.itspace.controller;
 
 import am.itspace.model.Author;
 import am.itspace.model.Book;
-import am.itspace.repository.AuthorRepository;
-import am.itspace.repository.BookRepository;
+import am.itspace.service.AuthorService;
+import am.itspace.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,36 +20,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookRepository bookRepo;
-    private final AuthorRepository authorRepo;
-
+    private final BookService bookService;
+    private final AuthorService authorService;
 
 
     @GetMapping("/bookPage")
     public String bookPage(ModelMap modelMap) {
-        List<Book> allBooks = bookRepo.findAll();
+        List<Book> allBooks = bookService.findAll();
         modelMap.addAttribute("books", allBooks);
         return "bookPage/book";
     }
 
     @GetMapping("/deleteBook")
     public String deleteBook(@RequestParam("id") int id) {
-        bookRepo.deleteById(id);
-        return "redirect:/bookPage";
+        String msg = "Book was delete";
+        bookService.deleteById(id);
+        return "redirect:/bookPage/?msg=" + msg;
     }
 
     @PostMapping("/editBook")
     public String add(@ModelAttribute Book book) {
-        bookRepo.save(book);
-        return "redirect:/";
+        String msg = "Book was updated";
+        bookService.save(book);
+        return "redirect:/?msg=" + msg;
     }
 
     @GetMapping("bookPage/editBook")
     public String edit(@RequestParam("id") int id, Model model) {
-        Book book = bookRepo.getOne(id);
-        List<Author> authors = authorRepo.findAll();
-        model.addAttribute("book",book);
-        model.addAttribute("authors",authors);
+        Book book = bookService.getOne(id);
+        List<Author> authors = authorService.findAll();
+        model.addAttribute("book", book);
+        model.addAttribute("authors", authors);
         return "bookPage/editBook";
     }
 

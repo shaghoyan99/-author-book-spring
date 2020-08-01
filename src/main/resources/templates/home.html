@@ -7,12 +7,12 @@
 </head>
 <body class="backGr">
 
-<h1 align="center"> Welcome library !!!</h1> <br>
+<h1 class="textColor" align="center" > Welcome library !!!</h1> <br>
 
 <div class="row" align="center">
     <div style="float: left">
-        Add author:
-        <form  action="/addAuthor" method="post" enctype="multipart/form-data" >
+        <p class="textColor">Add author: </p>
+        <form class="textColor"  action="/addAuthor" method="post" enctype="multipart/form-data" >
             <input type="text" name="name" placeholder="Please input name"/><br>
             <input type="text" name="surname" placeholder="Please input surname"/><br>
             <input type="text" name="email" placeholder="Please input email"/><br>
@@ -27,10 +27,10 @@
         <br><br>
     </div>
     <div style="float: right">
-        Add book:
+        <p class="textColor">Add book: </p>
         <form  action="/addBook" method="post" >
             <input type="text" name="title" placeholder="Please input title"/><br>
-            <input type="text" name="description" placeholder="Please input description"/><br>
+            <textarea  name="description" placeholder="Please input description"></textarea><br>
             <input type="number" name="price" placeholder="Please input price"/><br>
             <select name="author.id">
                 <option th:each="author:${authors}" th:value="${author.id}" th:text="${author.name}"></option>
