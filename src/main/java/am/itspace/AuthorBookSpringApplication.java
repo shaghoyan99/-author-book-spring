@@ -9,5 +9,4 @@ public class AuthorBookSpringApplication {
     public static void main(String[] args) {
         SpringApplication.run(AuthorBookSpringApplication.class, args);
     }
-
 }
