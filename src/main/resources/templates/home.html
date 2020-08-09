@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link href="/css/style.css" rel="stylesheet" >
+    <link href="/css/menu.css" rel="stylesheet" >
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
-<body class="backGr">
+<body>
 
-<h1 class="textColor" align="center" > Welcome library !!!</h1> <br>
-<a href="/logout">Logout</a>
+<header th:insert="fragments/general :: menu"> </header>
+
+<h3 th:text="${msg}" th:if="${msg != null}"></h3>
 <div class="row" align="center">
     <div style="float: left">
-        <p class="textColor">Add author: </p>
-        <form class="textColor"  action="/addAuthor" method="post" enctype="multipart/form-data" >
+        <p class="textColor">Add user: </p>
+        <form class="textColor"  action="/addUser" method="post" enctype="multipart/form-data" >
+            <input type="file" name="image" /><br>
             <input type="text" name="name" placeholder="Please input name"/><br>
             <input type="text" name="surname" placeholder="Please input surname"/><br>
-            <input type="text" name="email" placeholder="Please input email"/><br>
-            <input type="radio" name="gender" value="MALE"/>MALE<br>
-            <input type="radio" name="gender" value="FEMALE"/>FEMALE<br>
+            <select name = "gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select><br>
+            <select name = "role">
+                <option value="ADMIN">Admin</option>
+                <option value="AUTHOR">Author</option>
+            </select><br>
             <textarea name="bio" placeholder="Please input bio"></textarea><br>
-            <input type="file" name="image" /><br>
+            <input type="text" name="email" placeholder="Please input email"/><br>
+            <input type="text" name="password" placeholder="Please input password"/><br>
+            <input type="text" name="confimPassword" placeholder="Please input password once again"/><br>
             <input type="submit" value="Add">
         </form>
         <br>
-        <a href="/authorPage">All Author</a>
         <br><br>
     </div>
     <div style="float: right">
@@ -32,13 +43,12 @@
             <input type="text" name="title" placeholder="Please input title"/><br>
             <textarea  name="description" placeholder="Please input description"></textarea><br>
             <input type="number" name="price" placeholder="Please input price"/><br>
-            <select name="author.id">
-                <option th:each="author:${authors}" th:value="${author.id}" th:text="${author.name}"></option>
+            <select name="user.id">
+                <option th:each="user:${users}" th:value="${user.id}" th:text="${user.name}"></option>
             </select><br>
             <input type="submit" value="Add">
         </form>
         <br>
-        <a href="/bookPage">All Book</a>
     </div>
 </div>
 </body>

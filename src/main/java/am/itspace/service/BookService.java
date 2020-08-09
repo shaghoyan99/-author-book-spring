@@ -3,6 +3,8 @@ package am.itspace.service;
 import am.itspace.model.Book;
 import am.itspace.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +23,8 @@ public class BookService {
         return bookRepo.getOne(id);
     }
 
-    public List<Book> findAll() {
-        return bookRepo.findAll();
+    public Page<Book> findAll(PageRequest pageRequest) {
+        return bookRepo.findAll(pageRequest);
     }
 
     public void deleteById(int id) {

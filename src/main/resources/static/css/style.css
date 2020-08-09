@@ -1,5 +1,12 @@
-.backGr {
-    background-color: burlywood;
+body {
+    width: 100%;
+    background-image: url("/images/imagefon.png");
+    min-height: 100%;
+
+}
+
+.topnav a:hover {
+    border-bottom: 3px solid red;
 }
 
 

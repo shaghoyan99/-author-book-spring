@@ -25,6 +25,6 @@ public class Book {
     private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Author author;
+    private User user;
 
 }

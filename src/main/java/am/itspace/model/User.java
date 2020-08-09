@@ -13,9 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "author")
+@Table(name = "user")
 
-public class Author {
+public class User {
 
 
     @Id
@@ -23,10 +23,18 @@ public class Author {
     private int id;
     private String name;
     private String surname;
-    private String email;
     @Enumerated(value = EnumType.STRING)
     @Column(columnDefinition = "enum('MALE','FEMALE')")
     private Gender gender;
+    @Enumerated(value = EnumType.STRING)
+    @Column(columnDefinition = "enum('ADMIN','AUTHOR')")
+    private Role role;
     private String bio;
     private String profilePic;
+    private String email;
+    private String password;
+    @Transient
+    private String confimPassword;
+    private boolean active;
+    private String token;
 }
