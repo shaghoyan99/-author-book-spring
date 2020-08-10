@@ -11,7 +11,7 @@
 <div th:fragment="menu">
 <div class="container" >
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <h6 class="nav-link" th:text="Welcome + ' ' + ${username}" th:if="${username != null}"></h6>
+        <h6 class="nav-link" th:text="#{home.menu.msg.page} + ' ' + ${user.name}" th:if="${user != null}"></h6>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,28 +19,34 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto topnav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/" th:text="#{home.menu.home.page}" >Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/userPage">Users</a>
+                    <a class="nav-link" href="/userPage" th:text="#{home.menu.users.page}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/bookPage">Books</a>
+                    <a class="nav-link" href="/bookPage" th:text="#{home.menu.books.page}">Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#" th:text="#{home.menu.about.page}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="#" th:text="#{home.menu.contact.page}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white" type="button" href="/loginPage" data-toggle="modal" data-target="#myModal" th:if="${username == null}">Sign In</a>
-                    <a class="nav-link btn btn-primary text-white" type="button" href="/logout" data-toggle="modal" data-target="#myModal" th:if="${username != null}">Logout</a>
+                    <a class="nav-link btn btn-primary text-white" type="button" href="/loginPage" data-toggle="modal" data-target="#myModal" th:text="#{home.menu.singIn.page}" th:if="${username == null}"></a>
+                    <a class="nav-link btn btn-primary text-white" type="button" href="/logout" data-toggle="modal" data-target="#myModal" th:text="#{home.menu.logout.page}" th:if="${username != null}"></a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
+</div>
+
+<div th:fragment="langIcon">
+    <a href="?lang=hy">ARM</a>
+    <a href="?lang=ru">RUS</a>
+    <a href="?lang=en">ENG</a>
 </div>
 </body>
 </html>

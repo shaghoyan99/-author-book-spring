@@ -1,5 +1,6 @@
 package am.itspace.controller;
 
+import am.itspace.dto.UserRequestDto;
 import am.itspace.model.Book;
 import am.itspace.model.Role;
 import am.itspace.model.User;
@@ -16,9 +17,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,6 +43,7 @@ public class MainController {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
+
     @GetMapping("/")
     public String homePage(Model modelMap, @RequestParam(name = "msg", required = false) String msg) {
         List<User> allUser = userService.findAll();
@@ -55,28 +60,46 @@ public class MainController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute User user, @RequestParam("image") MultipartFile file) throws IOException {
+    public String addUser(@ModelAttribute @Valid  UserRequestDto userRequest, BindingResult br, @RequestParam("image") MultipartFile file, ModelMap modelMap) throws IOException {
+        if (br.hasErrors()) {
+            List<User> allUser = userService.findAll();
+            modelMap.addAttribute("users", allUser);
+            return "home";
+        }
         String msg;
-        if (!user.getPassword().equals(user.getConfimPassword())) {
+//        if(!TextUtil.VALID_EMAIL_ADDRESS_REGEX.matcher(userRequest.getEmail()).find()) {
+//            msg = "Email does not valid";
+//            return "redirect:/?msg=" + msg;
+//        }
+        if (!userRequest.getPassword().equals(userRequest.getConfimPassword())) {
             msg = "Password and Confirm Password does not match!";
             return "redirect:/?msg=" + msg;
         }
-        Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
+        Optional<User> byEmail = userRepository.findByEmail(userRequest.getEmail());
         if (byEmail.isPresent()) {
             msg = "User already exists";
             return "redirect:/?msg=" + msg;
         }
-        String name = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        File image = new File(uploadDir, name);
+        String profilePic = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        File image = new File(uploadDir, profilePic);
         file.transferTo(image);
-        user.setProfilePic(name);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(false);
-        user.setToken(UUID.randomUUID().toString());
+        User user = User.builder()
+                .name(userRequest.getName())
+                .surname(userRequest.getSurname())
+                .gender(userRequest.getGender())
+                .role(userRequest.getRole())
+                .bio(userRequest.getBio())
+                .bio(userRequest.getBio())
+                .profilePic(profilePic)
+                .email(userRequest.getEmail())
+                .password(passwordEncoder.encode(userRequest.getPassword()))
+                .active(false)
+                .token(UUID.randomUUID().toString())
+                .build();
         userService.save(user);
-        String link = "http://localhost:8080/activate?email=" + user.getEmail() + "&token=" + user.getToken();
+        String link = "http://localhost:8080/activate?email=" + userRequest.getEmail() + "&token=" + user.getToken();
         msg = "User was added";
-        emailService.setMailSender(user.getEmail(), "Welcome", " Dear " + " " + user.getName() + " You have successfully registered. Please activate yor" +
+        emailService.setMailSender(userRequest.getEmail(), "Welcome", " Dear " + " " + userRequest.getName() + " You have successfully registered. Please activate yor" +
                 " account by cliking on: " + link);
         return "redirect:/?msg=" + msg;
     }

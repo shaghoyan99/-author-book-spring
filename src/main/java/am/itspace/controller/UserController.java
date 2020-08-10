@@ -8,6 +8,7 @@ import am.itspace.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +35,7 @@ public class UserController {
                              @RequestParam(name = "msg", required = false) String msg,
                              @RequestParam(value = "page", defaultValue = "1") int page,
                              @RequestParam(value = "size", defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size);
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by(Sort.Order.asc("name")));
         Page<User> users = userService.findAllPageUser(pageRequest);
         PageWrapper<User> pageWrapper = new PageWrapper<>(users, "/userPage");
         int totalPages = users.getTotalPages();
@@ -44,7 +45,7 @@ public class UserController {
                     .collect(Collectors.toList());
             modelMap.addAttribute("pageNumbers", pageNumbers);
         }
-        modelMap.addAttribute("users", pageWrapper);
+        modelMap.addAttribute("users", users);
         modelMap.addAttribute("msg", msg);
         return "userPage/users";
     }

@@ -33,8 +33,6 @@ public class User {
     private String profilePic;
     private String email;
     private String password;
-    @Transient
-    private String confimPassword;
     private boolean active;
     private String token;
 }

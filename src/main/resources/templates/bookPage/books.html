@@ -40,39 +40,12 @@
         </tr>
         </tbody>
     </table>
-    <!--    <div th:if="${books.totalPages > 0}" class="pagination"-->
-    <!--         th:each="pageNumber : ${pageNumbers}">-->
-    <!--        <a th:href="@{/bookPage(size=${books.size}, page=${pageNumber})}"-->
-    <!--           th:text=${pageNumber}-->
-    <!--           th:class="${pageNumber==books.number + 1} ? active"></a>-->
-    <!--    </div>-->
-<!--        <div class="table-pagination">-->
-<!--            <ul class="pagination">-->
-<!--                <li th:class="${books.number eq 0} ? 'disabled' : ''">-->
-<!--                    <a th:if="${not books.firstPage}"-->
-<!--                       th:href="@{${'/bookPage'}(page=${books.number-1},size=${books.size})}">Previous</a>-->
-<!--                    <a th:if="${books.firstPage}" href="javascript:void(0);">Previous</a>-->
-<!--                </li>-->
-
-<!--                <li th:each="pageNo : ${#numbers.sequence(0, books.totalPages - 1)}"-->
-<!--                    th:class="${books.number eq pageNo}? 'active' : ''">-->
-<!--                    <a th:if="${books.number  eq pageNo}" href="javascript:void(0);">-->
-<!--                        <span th:text="${pageNo + 1}"></span>-->
-<!--                    </a>-->
-<!--                    <a th:if="${not (books.number  eq pageNo)}"-->
-<!--                       th:href="@{${'/bookPage'}(page=${pageNo},size=${books.size})}">-->
-<!--                        <span th:text="${pageNo + 1}"></span>-->
-<!--                    </a>-->
-
-<!--                </li>-->
-<!--                <li th:class="${books.number + 1 ge books.totalPages} ? 'disabled' : ''">-->
-<!--                    <a th:if="${not books.lastPage}"-->
-<!--                       th:href="@{${'/bookPage'}(page=${books.number+1},size=${books.size})}">Next</a>-->
-<!--                    <a th:if="${books.lastPage}" href="javascript:void(0);">Next</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--    </div>-->
-<!--</div>-->
+        <div  th:if="${books.totalPages > 0}" class="pagination"
+             th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/bookPage(size=${books.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==books.number + 1} ? active"></a>
+        </div>
 <script>
     // $(document).ready(function () {
     //     $('#books').DataTable();
