@@ -22,12 +22,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,7 +47,7 @@ public class MainController {
 
 
     @GetMapping("/")
-    public String homePage(Model modelMap, @RequestParam(name = "msg", required = false) String msg) {
+    public String homePage(@ModelAttribute("user") UserRequestDto userRequest, Model modelMap, @RequestParam(name = "msg", required = false) String msg) {
         List<User> allUser = userService.findAll();
         modelMap.addAttribute("users", allUser);
         modelMap.addAttribute("msg", msg);
@@ -60,7 +62,8 @@ public class MainController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute @Valid  UserRequestDto userRequest, BindingResult br, @RequestParam("image") MultipartFile file, ModelMap modelMap) throws IOException {
+    public String addUser(@ModelAttribute("user") @Valid UserRequestDto userRequest, BindingResult br,
+                          @RequestParam("image") MultipartFile file, ModelMap modelMap, Locale locale) throws IOException, MessagingException {
         if (br.hasErrors()) {
             List<User> allUser = userService.findAll();
             modelMap.addAttribute("users", allUser);
@@ -71,7 +74,7 @@ public class MainController {
 //            msg = "Email does not valid";
 //            return "redirect:/?msg=" + msg;
 //        }
-        if (!userRequest.getPassword().equals(userRequest.getConfimPassword())) {
+        if (!userRequest.getPassword().equals(userRequest.getConfirmPassword())) {
             msg = "Password and Confirm Password does not match!";
             return "redirect:/?msg=" + msg;
         }
@@ -99,8 +102,7 @@ public class MainController {
         userService.save(user);
         String link = "http://localhost:8080/activate?email=" + userRequest.getEmail() + "&token=" + user.getToken();
         msg = "User was added";
-        emailService.setMailSender(userRequest.getEmail(), "Welcome", " Dear " + " " + userRequest.getName() + " You have successfully registered. Please activate yor" +
-                " account by cliking on: " + link);
+        emailService.setHtmlEmail(userRequest.getEmail(), "Welcome", user,link,"email/UserWelcomeMail.html",locale);
         return "redirect:/?msg=" + msg;
     }
 

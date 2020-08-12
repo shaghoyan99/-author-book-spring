@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UserWelcomMail</title>
+</head>
+<body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="../static/css/style.css" rel="stylesheet" >
+</head>
+<body>
+<table class="body-wrap">
+    <tr>
+        <td class="container">
+            <table>
+                <tr>
+                    <td align="center" class="masthead">
+                        <h1>Online Library</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content">
+                        <h2 th:text="#{email.message.hi}"><span th:text="${user.name}"></span></h2>
+                        <p th:text="#{email.message}"></p>
+                        <table>
+                            <tr>
+                                <td align="center">
+                                    <p>
+                                        <a th:href="${url}" class="button" th:text="#{email.message.button.name}"></a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="container">
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p><a href="mailto:shagoyan99@gmail.com" th:text="#{email.me}"></a></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</body>
+</html>

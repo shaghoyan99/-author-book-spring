@@ -17,17 +17,16 @@ public class  HeaderController {
     private final UserService userService;
 
 
-    @ModelAttribute("user")
-    public User user (@AuthenticationPrincipal Principal principal) {
+    @ModelAttribute("username")
+    public String username (@AuthenticationPrincipal Principal principal) {
         String userEmail = null;
-        User user = null;
-//        String username = null;
+        String username = null;
         if (principal != null) {
             userEmail = principal.getName();
             Optional<User> byEmail = userService.findByEmail(userEmail);
-            user = byEmail.get();
-//            username = user.getName();
+            User user = byEmail.get();
+            username = user.getName();
         }
-        return user;
+        return username;
     }
 }

@@ -12,30 +12,45 @@
 
 <header th:insert="fragments/general :: menu"> </header>
 <header th:insert="fragments/general :: langIcon"> </header>
-<a href="mailto:shagoyan99@gmail.com">Email me</a>
+<header th:insert="fragments/general :: mailto"> </header>
+
 
 <h3 th:text="${msg}" th:if="${msg != null}"></h3>
 <div class="row" align="center">
     <div style="float: left">
         <p class="textColor" th:text="#{home.addUserForm.name.page}"></p>
-        <form class="textColor"  action="/addUser" method="post" enctype="multipart/form-data" >
-            <input type="file" name="image" /><br>
+        <form class="textColor"  th:action="@{/addUser}" method="post" enctype="multipart/form-data" th:object="${user}">
+            <input type="file" name="image"/><br>
+            <lebel for="name"></lebel>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="error"></span>
             <input type="text" name="name" th:placeholder="#{home.form.user.name.page}"/><br>
-<!--            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name-->
-<!--                Error</span>-->
+            <lebel for="surname"></lebel>
+            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:class="error"></span>
             <input type="text" name="surname" th:placeholder="#{home.form.user.surname.page}"/><br>
+            <lebel for="gender"></lebel>
             <select name = "gender">
+                <option disabled selected value th:text="#{home.form.user.gender.assing.page}"></option>
                 <option value="MALE" th:text="#{home.form.user.gender.male.page}"></option>
                 <option value="FEMALE" th:text="#{home.form.user.gender.female.page}"></option>
             </select><br>
+            <lebel for="role"></lebel>
             <select name = "role">
+                <option disabled selected value th:text="#{home.form.user.role.assing.page}"></option>
                 <option value="ADMIN" th:text="#{home.form.user.role.admin.page}"></option>
                 <option value="AUTHOR" th:text="#{home.form.user.role.author.page}"></option>
             </select><br>
+            <lebel for="bio"></lebel>
+            <span th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}" th:class="error"></span>
             <textarea name="bio" th:placeholder="#{home.form.user.bio.page}"></textarea><br>
+            <lebel for="email"></lebel>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="error"></span>
             <input type="text" name="email" th:placeholder="#{home.form.user.email.page}"/><br>
+            <lebel for="password"></lebel>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="error"></span>
             <input type="password" name="password" th:placeholder="#{home.form.user.password.page}"/><br>
-            <input type="password" name="confimPassword" th:placeholder="#{home.form.user.confimPassword.page}"/><br>
+            <lebel for="confirmPassword"></lebel>
+            <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" th:class="error"></span>
+            <input type="password" name="confirmPassword" th:placeholder="#{home.form.user.confimPassword.page}"/><br>
             <input type="submit" th:value="#{home.form.user.button}">
         </form>
         <br>

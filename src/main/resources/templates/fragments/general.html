@@ -11,7 +11,7 @@
 <div th:fragment="menu">
 <div class="container" >
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <h6 class="nav-link" th:text="#{home.menu.msg.page} + ' ' + ${user.name}" th:if="${user != null}"></h6>
+        <h6 class="nav-link" th:text="#{home.menu.msg.page} + ' ' + ${username}" th:if="${username != null}"></h6>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,6 +47,9 @@
     <a href="?lang=hy">ARM</a>
     <a href="?lang=ru">RUS</a>
     <a href="?lang=en">ENG</a>
+</div>
+<div th:fragment="mailto">
+    <a href="mailto:shagoyan99@gmail.com" th:text="#{email.me}"></a>
 </div>
 </body>
 </html>

@@ -24,13 +24,13 @@ public class UserRequestDto {
     @NotBlank(message = "Surname is Required")
     private String surname;
     private Gender gender;
-    private Role role =Role.AUTHOR;
+    private Role role;
     @NotBlank(message = "Bio is Required")
     private String bio;
-    @Email(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$" ,message = "Email is not valid")
+    @Email(message = "Email is not valid")
     private String email;
     @Size(min = 6,message = "Password length should be at leaset 6 symbol")
     private String password;
     @Size(min = 6,message = "Confim  password length should be at leaset 6 symbol")
-    private String confimPassword;
+    private String confirmPassword;
 }
